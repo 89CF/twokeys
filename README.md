@@ -294,6 +294,8 @@ Things the brief left open, resolved with the simplest safe option:
 - **Before the official start (3 Oct, morning):** project brief, first prototype of the program, tests, SDK and app (from about 05:20 on 3 Oct; the first devnet deploy of the program is visible on-chain). This repository was initialised with a single commit for submission.
 - **During the event (3–4 Oct):** redesign to the Superteam rules (payer/payee templates, `penalty` / `on_complete` / `legal_label`), redeploy, DemoRent, Explorer activity log, "apply the outcome" flow, identity escrow removed, README, deck and video.
 
+- **Name:** the project started as "Kapora" and was renamed to **TwoKeys** before submission. The devnet program was deployed before the rename; only identifiers changed (crate/module name), the instruction logic is identical. Program ID unchanged.
+
 ## Credits / External resources
 
 - [Anchor](https://github.com/solana-foundation/anchor) (Apache-2.0): program framework, IDL, TS client.
