@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Kapora Protocol - pitch deck generator.
+TwoKeys - pitch deck generator.
 
 One layout model -> two renderers:
   * deck.pptx  (python-pptx)
@@ -129,7 +129,7 @@ def chrome(s, n, eyebrow, title, subtitle=None):
 
 
 def footer(s, n):
-    text(s, 0.7, 6.98, 6, 0.25, [P(R("Kapora", bold=True, color=TEXT2), R("  Protocol  ·  HackYeah 2026"))],
+    text(s, 0.7, 6.98, 6, 0.25, [P(R("TwoKeys", bold=True, color=TEXT2), R("  Protocol  ·  HackYeah 2026"))],
          size=10, color=MUTED)
     text(s, 10.63, 6.98, 2.0, 0.25, f"{n:02d} / {TOTAL:02d}", size=10, color=MUTED, align="r")
 
@@ -175,12 +175,12 @@ def build_slides():
 
     # 1 ── Title ------------------------------------------------------------
     s = Slide(bg="bg_title.png", notes=(
-        "Hi, I'm [Name]. This is Kapora: trustless deposits for marketplaces, built as one trust component that "
+        "Hi, I'm [Name]. This is TwoKeys: trustless deposits for marketplaces, built as one trust component that "
         "any marketplace, in any sector, can plug in. Our one-liner: you can disappear, but not with my money."))
     rect(s, 0.85, 1.05, 0.62, 0.62, grad=GRAD, radius=0.16)
-    text(s, 0.85, 1.05, 0.62, 0.62, "K", size=24, bold=True, color=NAVY_INK, align="c", valign="m")
-    text(s, 1.62, 1.18, 6, 0.4, "KAPORA PROTOCOL", size=13, bold=True, color=TEXT2, spacing=3, valign="m")
-    text(s, 0.75, 1.72, 7.0, 1.85, [P(R("Kapora", grad=GRAD))], size=100, bold=True)
+    text(s, 0.85, 1.05, 0.62, 0.62, "2K", size=20, bold=True, color=NAVY_INK, align="c", valign="m")
+    text(s, 1.62, 1.18, 6, 0.4, "TWOKEYS PROTOCOL", size=13, bold=True, color=TEXT2, spacing=3, valign="m")
+    text(s, 0.75, 1.72, 7.0, 1.85, [P(R("TwoKeys", grad=GRAD))], size=100, bold=True)
     text(s, 0.85, 3.72, 7.3, 0.6, "Trustless deposits for marketplaces", size=30, color=TEXT)
     text(s, 0.85, 4.42, 7.3, 0.45, "One trust component for every marketplace and sector.", size=18, color=TEAL)
     text(s, 0.85, 5.0, 7.3, 0.45, "“You can disappear — but not with my money.”", size=18,
@@ -279,7 +279,7 @@ def build_slides():
 
     # 4 ── Solution -----------------------------------------------------------
     s = Slide(notes=(
-        "Kapora is the law as code. The seller locks a stake first, so a fake seller has to risk their own money. "
+        "TwoKeys is the law as code. The seller locks a stake first, so a fake seller has to risk their own money. "
         "The buyer locks the deposit into a vault owned by the program. Two confirmations at the handover release "
         "the money. If someone backs out or vanishes, the legal rule pays out automatically."))
     chrome(s, 4, "The solution", "The law, as code",
@@ -319,7 +319,7 @@ def build_slides():
         text(s, x, 2.53, 2.0, 0.28, who, size=10.5, bold=hi, color=TEAL if hi else TEXT2, align="c")
         line(s, x + 1.0, 2.94, x + 1.0, 3.3, color=TEAL if hi else VIOLET, lw=1.75, arrow=True)
     rect(s, 0.7, 3.32, 6.32, 1.72, fill="060914", line="3F2F7A", lw=1.25, radius=0.12)
-    text(s, 0.95, 3.45, 5.9, 0.3, "programs/kapora/src/settle.rs", size=11.5, font=MONO, color=VIOLET, bold=True)
+    text(s, 0.95, 3.45, 5.9, 0.3, "programs/twokeys/src/settle.rs", size=11.5, font=MONO, color=VIOLET, bold=True)
     text(s, 0.95, 3.8, 5.9, 0.3, [P(R("payout", color=TEAL, bold=True),
                                     R("(penalty, on_complete, outcome, D, S, bps)", color=TEXT))],
          size=12, font=MONO)
@@ -430,7 +430,7 @@ def build_slides():
     # 7 ── Integration ------------------------------------------------------------------
     s = Slide(notes=(
         "Integration is one script tag. A marketplace adds the widget to a listing page with a template, and the "
-        "button opens the Kapora deal flow. Developers can use the TypeScript SDK instead, and every deal has a "
+        "button opens the TwoKeys deal flow. Developers can use the TypeScript SDK instead, and every deal has a "
         "shareable link. Our two demo marketplaces, DemoAuto for cars and DemoRent for equipment rental, are "
         "fictional, and they run the same widget on the same program."))
     chrome(s, 7, "Implementation potential", "One component. Every marketplace, every sector.")
@@ -554,7 +554,7 @@ def build_slides():
         "parties, an arbiter is trusted once both agree to one, and this is devnet with test USDC. Repo, video "
         "and live demo are linked here. Thank you."))
     rect(s, 0.85, 1.0, 0.62, 0.62, grad=GRAD, radius=0.16)
-    text(s, 0.85, 1.0, 0.62, 0.62, "K", size=24, bold=True, color=NAVY_INK, align="c", valign="m")
+    text(s, 0.85, 1.0, 0.62, 0.62, "2K", size=20, bold=True, color=NAVY_INK, align="c", valign="m")
     text(s, 0.82, 1.8, 11.8, 0.8, "One component —", size=42, bold=True, color=TEXT)
     text(s, 0.82, 2.55, 11.8, 0.8, [P(R("every marketplace, every sector,", grad=GRAD))], size=42, bold=True)
     text(s, 0.82, 3.3, 11.8, 0.8, [P(R("every country.", grad=GRAD))], size=42, bold=True)
@@ -564,7 +564,7 @@ def build_slides():
         w = 0.42 + 0.098 * len(st)
         pill(s, x, 4.35, w, 0.4, st, fill=CARD2, line_=BORDER, color=TEXT, size=12, bold=False, spacing=0)
         x += w + 0.16
-    info = [("Repo", "github.com/89CF/kapora"), ("Video", "[ public video link, ≤ 3 min ]"),
+    info = [("Repo", "github.com/89CF/twokeys"), ("Video", "[ public video link, ≤ 3 min ]"),
             ("Live demo", "run locally on devnet, see README  ·  demo accounts built in"),
             ("Program", "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"),
             ("Team", "[Team name]  ·  [Name Surname]  ·  ahmetenes2004@hotmail.com")]
@@ -721,8 +721,8 @@ def render_pptx(slides, out):
                             rPr.set("spc", str(int(sp * 100)))
         if sd.notes:
             sl.notes_slide.notes_text_frame.text = sd.notes
-    prs.core_properties.title = "Kapora: Trustless Deposits for Marketplaces"
-    prs.core_properties.author = "Kapora Protocol"
+    prs.core_properties.title = "TwoKeys: Trustless Deposits for Marketplaces"
+    prs.core_properties.author = "TwoKeys"
     prs.save(out)
 
 
@@ -732,7 +732,7 @@ def _css_font(f):
 
 
 def render_html(slides, out):
-    parts = ["""<!doctype html><html><head><meta charset="utf-8"><title>Kapora deck</title><style>
+    parts = ["""<!doctype html><html><head><meta charset="utf-8"><title>TwoKeys deck</title><style>
 @page { size: 13.333in 7.5in; margin: 0; }
 * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html, body { margin: 0; padding: 0; background: #000; }

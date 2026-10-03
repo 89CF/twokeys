@@ -1,10 +1,10 @@
-# Kapora Protocol — one trust component for every marketplace
+# TwoKeys — one trust component for every marketplace
 
 > *"You can disappear — but not with my money."*
 
 HackYeah 2026 · Superteam PL challenge **Finance Without Intermediaries** · Solana **devnet**
 
-Kapora is a small Solana program plus an embeddable widget. When two strangers do a deal, the money goes
+TwoKeys is a small Solana program plus an embeddable widget. When two strangers do a deal, the money goes
 into a program-owned vault instead of to the other person, and the rules for who gets it back are fixed in
 the program when the offer is created. Each sector is a **template**: the same program with different
 parameters. The main use case is the Polish **zadatek** (reservation deposit, Civil Code art. 394) when
@@ -43,12 +43,12 @@ change outcomes.
 
 | What | Where |
 |---|---|
-| Payout table (pure function) | [`programs/kapora/src/settle.rs`](programs/kapora/src/settle.rs) → `payout()` (line 15), dispatched by `compute_payout()` on `deal.kind` |
+| Payout table (pure function) | [`programs/twokeys/src/settle.rs`](programs/twokeys/src/settle.rs) → `payout()` (line 15), dispatched by `compute_payout()` on `deal.kind` |
 | The only code that moves money out of the vault | `settle.rs` → `settle()` (line 122): computes the payout, asserts `to_payer + to_payee == P`, transfers with the deal PDA as signer, closes the vault, marks the deal `Settled` (terminal) |
-| Both parties confirm → funds release | [`instructions/confirm_complete.rs`](programs/kapora/src/instructions/confirm_complete.rs) |
-| A party backs out → legal rule applies | [`instructions/withdraw.rs`](programs/kapora/src/instructions/withdraw.rs) |
-| **A party disappears → anyone applies the outcome** | [`instructions/claim_after_deadline.rs`](programs/kapora/src/instructions/claim_after_deadline.rs): after `complete_deadline + grace_secs`, **any wallet** may call it; the silent party is treated as a no-show |
-| Legal label constraints (zadatek ⇒ Forfeit + S = D + ToPayee) | [`instructions/create_offer.rs`](programs/kapora/src/instructions/create_offer.rs) → `validate_legal_params()` |
+| Both parties confirm → funds release | [`instructions/confirm_complete.rs`](programs/twokeys/src/instructions/confirm_complete.rs) |
+| A party backs out → legal rule applies | [`instructions/withdraw.rs`](programs/twokeys/src/instructions/withdraw.rs) |
+| **A party disappears → anyone applies the outcome** | [`instructions/claim_after_deadline.rs`](programs/twokeys/src/instructions/claim_after_deadline.rs): after `complete_deadline + grace_secs`, **any wallet** may call it; the silent party is treated as a no-show |
+| Legal label constraints (zadatek ⇒ Forfeit + S = D + ToPayee) | [`instructions/create_offer.rs`](programs/twokeys/src/instructions/create_offer.rs) → `validate_legal_params()` |
 | Where the money waits | Vault = SPL token account at PDA `["vault", deal]`, authority = the `Deal` PDA itself |
 
 **"One of the parties disappears halfway. Where are the funds, who can recover them?"** The funds are in
@@ -86,15 +86,15 @@ main zadatek demo runs **without** an arbiter.
 ## What is where
 
 ```
-kapora/
-├── programs/kapora/src/      # Anchor program (all rules that move money)
+twokeys/
+├── programs/twokeys/src/      # Anchor program (all rules that move money)
 │   ├── lib.rs                # 9 instructions
 │   ├── state.rs              # Deal, Profile, PlatformStats, enums (Penalty, OnComplete, LegalLabel, Outcome…)
 │   ├── settle.rs             # payout table + the single settle() routine (+ Rust unit tests)
 │   ├── errors.rs / events.rs
 │   └── instructions/         # one file per instruction
 ├── tests/                    # TypeScript scenario tests on LiteSVM (clock warping)
-├── sdk/                      # @kapora/sdk: PDA helpers, client, templates, payout preview
+├── sdk/                      # @twokeys/sdk: PDA helpers, client, templates, payout preview
 ├── app/                      # Next.js app: DemoAuto, DemoRent, /d/[deal], /offer/new, stats, arbiter, faucet
 ├── widget/                   # embeddable widget.js (one <script> tag)
 ├── scripts/                  # devnet: test USDC mint, demo accounts, SDK end-to-end flows, faucet
@@ -108,7 +108,7 @@ kapora/
 
 | What | Address |
 |---|---|
-| Program `kapora` | [`AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F`](https://explorer.solana.com/address/AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F?cluster=devnet) |
+| Program `twokeys` | [`AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F`](https://explorer.solana.com/address/AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F?cluster=devnet) |
 | Test USDC mint (6 decimals) | [`7ajPpuq9PN9kcbNgLDkSDW2RCBhuXkeyKc758bbAZfb`](https://explorer.solana.com/address/7ajPpuq9PN9kcbNgLDkSDW2RCBhuXkeyKc758bbAZfb?cluster=devnet) |
 | Platform id DemoAuto / DemoRent | `2CxboToKDAxRAcdN1t1WoPkBTBt7zSRd5q6BLT8PQfLQ` / `GTkDotc51vYisK1VwovWWtMaw4htRQ4Xjq3auT44AyAV` |
 | Demo arbiter | `6su62ss4dnQFif8jUyWFJndFAuzNwc22cJB29suJcgMH` |
@@ -146,7 +146,7 @@ Settled(Cancelled)     └─open_dispute──▶ Disputed ──resolve──�
 
 - `penalty`: **Forfeit** (the party at fault loses what they locked) or **Refund** (everybody gets their money back).
 - `on_complete`: **ToPayee** (deposit/fee/price goes to the payee) or **ToPayer** (rental deposit returns). `S` always returns to the payee.
-- `legal_label`: `None | Zadatek | Zaliczka | TrBaglanma`, a label that constrains parameters (`Zadatek` ⇒ Forfeit, `S == D`, ToPayee; `Zaliczka` ⇒ Refund).
+- `legal_label`: `None | Zadatek | Zaliczka | TrBinding`, a label that constrains parameters (`Zadatek` ⇒ Forfeit, `S == D`, ToPayee; `Zaliczka` ⇒ Refund).
 
 | Outcome | Forfeit: payer / payee | Refund: payer / payee |
 |---|---|---|
@@ -200,9 +200,9 @@ Never on-chain: names, e-mails, phone numbers, addresses, plates, listing text, 
 
 ```bash
 pnpm install
-anchor build                      # target/deploy/kapora.so + IDL
+anchor build                      # target/deploy/twokeys.so + IDL
 node scripts/sync-idl.mjs         # copy IDL/types into the SDK
-cargo test -p kapora --lib        # payout table unit tests (Rust)
+cargo test -p twokeys --lib        # payout table unit tests (Rust)
 pnpm test                         # TypeScript scenario tests in LiteSVM (time travel)
 ```
 
@@ -210,12 +210,12 @@ pnpm test                         # TypeScript scenario tests in LiteSVM (time t
 
 ```bash
 pnpm devnet:setup                 # test USDC mint, demo accounts, writes app/.env.local
-pnpm --filter @kapora/app build && pnpm --filter @kapora/app start   # http://localhost:3000
+pnpm --filter @twokeys/app build && pnpm --filter @twokeys/app start   # http://localhost:3000
 ```
 
 1. Use the built-in **demo accounts** (header switcher), or Phantom / Solflare set to **Devnet**.
 2. `/dev/faucet` → fund the demo accounts (test USDC + a little SOL).
-3. `/demo/auto` → pick a car → **Pay deposit safely with Kapora** (as the seller) → share `/d/<deal>` →
+3. `/demo/auto` → pick a car → **Pay deposit safely with TwoKeys** (as the seller) → share `/d/<deal>` →
    switch to the buyer → **Reserve** → both confirm. Every step shows a **View on Solana Explorer** link.
 4. "Seller disappears": reserve + confirm as the buyer only, wait for the deadline, then press
    **apply the outcome** as anyone.
@@ -226,19 +226,19 @@ pnpm --filter @kapora/app build && pnpm --filter @kapora/app start   # http://lo
 pnpm devnet:happy                    # create → reserve → confirm ×2 → Completed
 pnpm devnet:happy -- --withdraw      # seller backs out → buyer gets 2×
 pnpm devnet:happy -- --disappear     # seller vanishes → a third party claims → buyer gets 2×
-pnpm --filter @kapora/app e2e        # Playwright through the UI (app must be running)
+pnpm --filter @twokeys/app e2e        # Playwright through the UI (app must be running)
 ```
 
 ### Deploy
 
 ```bash
 anchor build
-solana program deploy target/deploy/kapora.so --program-id target/deploy/kapora-keypair.json -u devnet
+solana program deploy target/deploy/twokeys.so --program-id target/deploy/twokeys-keypair.json -u devnet
 ```
 
 ### Verified status
 
-- `anchor build` ✔ · `cargo test -p kapora --lib` → 15 passing ✔ · `pnpm test` → 31 passing ✔
+- `anchor build` ✔ · `cargo test -p twokeys --lib` → 15 passing ✔ · `pnpm test` → 31 passing ✔
 - Program deployed/upgraded on devnet ✔ · SDK script flows (complete, withdraw, disappear) ✔ on devnet
 - UI end-to-end on devnet (Playwright): DemoAuto completion ✔ · seller disappears → visitor applies the outcome → buyer 2× ✔ · DemoRent rental deposit returned ✔
 
@@ -256,7 +256,7 @@ solana program deploy target/deploy/kapora.so --program-id target/deploy/kapora-
 - **Devnet only, test USDC, not audited.** No fee model, no real KYC.
 - **Upgrade authority** is still held until the final deploy (see Permissions).
 - **Deadlines use the cluster clock** (`Clock::unix_timestamp`), which can drift a few seconds.
-- **Legal interpretation** of zadatek / zaliczka / Turkish *bağlanma parası* is a design assumption and needs
+- **Legal interpretation** of zadatek / zaliczka / the Turkish binding-deposit rule is a design assumption and needs
   legal review for a real product.
 - Off-chain store is a local JSON file (not Supabase/Postgres) in the MVP.
 

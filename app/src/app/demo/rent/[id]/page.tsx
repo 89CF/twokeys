@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarDays, Check, MapPin, RotateCcw, User } from "lucide-react";
 import { ListingArt } from "@/components/ListingArt";
-import { KaporaWidget } from "@/components/KaporaWidget";
+import { TwoKeysWidget } from "@/components/TwoKeysWidget";
 import { fmtPrice, getListing, listingsFor } from "@/data/listings";
 import { PLATFORM_RENT } from "@/lib/config";
 
@@ -85,7 +85,7 @@ export default async function DemoRentListing({ params }: { params: Promise<{ id
                 to you automatically. The rental fee is paid separately.
               </p>
               <div className="mt-3">
-                <KaporaWidget platform={PLATFORM_RENT.toBase58()} listingId={item.id} amount={item.deposit} template="rental" />
+                <TwoKeysWidget platform={PLATFORM_RENT.toBase58()} listingId={item.id} amount={item.deposit} template="rental" />
               </div>
             </div>
           </div>

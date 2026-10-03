@@ -1,6 +1,6 @@
 /**
  * Test harness: runs the compiled program inside LiteSVM (in-process, with clock
- * control) and exposes it to the Anchor client / @kapora/sdk through a tiny Provider.
+ * control) and exposes it to the Anchor client / @twokeys/sdk through a tiny Provider.
  */
 import { type Provider, Wallet, utils } from "@coral-xyz/anchor";
 import {
@@ -28,9 +28,9 @@ import { FailedTransactionMetadata, LiteSVM } from "litesvm";
 import BN from "bn.js";
 import path from "node:path";
 
-import { KAPORA_PROGRAM_ID, KaporaClient } from "../sdk/src";
+import { TWOKEYS_PROGRAM_ID, TwoKeysClient } from "../sdk/src";
 
-export const PROGRAM_SO = path.join(__dirname, "..", "target", "deploy", "kapora.so");
+export const PROGRAM_SO = path.join(__dirname, "..", "target", "deploy", "twokeys.so");
 export const USDC = (ui: number) => new BN(ui).mul(new BN(1_000_000));
 
 export class TxError extends Error {
@@ -104,7 +104,7 @@ export interface Env {
   payer: Keypair;
   arbiter: Keypair;
   stranger: Keypair;
-  client: (kp: Keypair) => KaporaClient;
+  client: (kp: Keypair) => TwoKeysClient;
   balance: (owner: PublicKey, mint?: PublicKey) => bigint;
   warp: (seconds: number) => void;
   now: () => number;
@@ -117,7 +117,7 @@ export const START_USDC = 10_000;
 
 export function setup(): Env {
   const svm = new LiteSVM();
-  svm.addProgramFromFile(KAPORA_PROGRAM_ID, PROGRAM_SO);
+  svm.addProgramFromFile(TWOKEYS_PROGRAM_ID, PROGRAM_SO);
 
   const [mintAuthority, payee, payer, arbiter, stranger] = Array.from({ length: 5 }, () =>
     Keypair.generate(),
@@ -191,7 +191,7 @@ export function setup(): Env {
     payer,
     arbiter,
     stranger,
-    client: (kp) => new KaporaClient(new SvmProvider(svm, kp)),
+    client: (kp) => new TwoKeysClient(new SvmProvider(svm, kp)),
     balance,
     warp,
     now: () => Number(svm.getClock().unixTimestamp),

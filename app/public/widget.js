@@ -1,8 +1,8 @@
 /*!
- * Kapora Protocol — embeddable deposit button (vanilla JS, no dependencies).
+ * TwoKeys — embeddable deposit button (vanilla JS, no dependencies).
  *
  * Usage:
- *   <script src="https://<kapora-app>/widget.js"
+ *   <script src="https://<twokeys-app>/widget.js"
  *           data-platform="<PLATFORM_PUBKEY>"
  *           data-listing-id="abc123"
  *           data-amount="2000"            (amount in PLN the payer locks; demo rate 1 USDC ~ 1 PLN)
@@ -15,7 +15,7 @@
  * Clicking the button opens `${appUrl}/d/new?platform=..&listing=..&amount=..&template=..`
  * in a modal iframe overlay (default) or a new tab.
  *
- * Programmatic API: window.Kapora.mount(element, { platform, listingId, amount, template, appUrl, mode })
+ * Programmatic API: window.TwoKeys.mount(element, { platform, listingId, amount, template, appUrl, mode })
  */
 (function () {
   "use strict";
@@ -42,10 +42,10 @@
   }
 
   var TEMPLATES = {
-    deposit: { label: "Pay deposit safely with Kapora", noun: "deposit" },
-    rental: { label: "Pay security deposit with Kapora", noun: "security deposit" },
-    freelance: { label: "Pay the fee safely with Kapora", noun: "fee" },
-    purchase: { label: "Buy safely with Kapora", noun: "price" },
+    deposit: { label: "Pay deposit safely with TwoKeys", noun: "deposit" },
+    rental: { label: "Pay security deposit with TwoKeys", noun: "security deposit" },
+    freelance: { label: "Pay the fee safely with TwoKeys", noun: "fee" },
+    purchase: { label: "Buy safely with TwoKeys", noun: "price" },
   };
   /** Current template keys plus legacy values (car, property, item → deposit). */
   function normalizeTemplate(t) {
@@ -113,7 +113,7 @@
   function injectOverlayStyles() {
     if (overlayStylesInjected) return;
     var style = document.createElement("style");
-    style.setAttribute("data-kapora", "overlay");
+    style.setAttribute("data-twokeys", "overlay");
     style.textContent = OVERLAY_CSS;
     document.head.appendChild(style);
     overlayStylesInjected = true;
@@ -138,7 +138,7 @@
     overlay.className = "kp-overlay";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Kapora secure deposit");
+    overlay.setAttribute("aria-label", "TwoKeys secure deposit");
 
     var modal = document.createElement("div");
     modal.className = "kp-modal";
@@ -146,7 +146,7 @@
     var bar = document.createElement("div");
     bar.className = "kp-bar";
     bar.innerHTML =
-      '<div class="kp-brand"><span class="kp-logo">' + SHIELD_SVG.replace(/18/g, "14") + "</span>Kapora" +
+      '<div class="kp-brand"><span class="kp-logo">' + SHIELD_SVG.replace(/18/g, "14") + "</span>TwoKeys" +
       '<span class="kp-sub">&middot; secure deposit on Solana devnet</span></div>';
 
     var actions = document.createElement("div");
@@ -171,7 +171,7 @@
     var frame = document.createElement("iframe");
     frame.className = "kp-frame";
     frame.src = buildUrl(opts, true);
-    frame.title = "Kapora deposit";
+    frame.title = "TwoKeys deposit";
     frame.allow = "clipboard-write";
 
     modal.appendChild(bar);
@@ -189,7 +189,7 @@
   function mount(target, opts) {
     if (!target) return null;
     var host = document.createElement("div");
-    host.setAttribute("data-kapora-widget", "");
+    host.setAttribute("data-twokeys-widget", "");
     var root = host.attachShadow ? host.attachShadow({ mode: "open" }) : host;
 
     var style = document.createElement("style");
@@ -240,8 +240,8 @@
   }
 
   function mountFromScript(script) {
-    if (!script || script.getAttribute("data-kapora-mounted")) return;
-    script.setAttribute("data-kapora-mounted", "1");
+    if (!script || script.getAttribute("data-twokeys-mounted")) return;
+    script.setAttribute("data-twokeys-mounted", "1");
     var opts = optionsFromScript(script);
     var target = null;
     if (script.dataset && script.dataset.target) target = document.querySelector(script.dataset.target);
@@ -255,15 +255,15 @@
     }
   }
 
-  // Messages from the embedded Kapora app (same protocol for any origin, payload is non-sensitive).
+  // Messages from the embedded TwoKeys app (same protocol for any origin, payload is non-sensitive).
   window.addEventListener("message", function (e) {
     var msg = e && e.data;
     if (!msg || typeof msg !== "object" || typeof msg.type !== "string") return;
-    if (msg.type === "kapora:close") closeModal();
+    if (msg.type === "twokeys:close") closeModal();
   });
 
-  window.Kapora = window.Kapora || {};
-  window.Kapora.mount = function (el, opts) {
+  window.TwoKeys = window.TwoKeys || {};
+  window.TwoKeys.mount = function (el, opts) {
     var o = opts || {};
     return mount(typeof el === "string" ? document.querySelector(el) : el, {
       platform: o.platform || "",
@@ -275,7 +275,7 @@
       label: o.label || "",
     });
   };
-  window.Kapora.close = closeModal;
+  window.TwoKeys.close = closeModal;
 
   var current = document.currentScript;
   if (current) {

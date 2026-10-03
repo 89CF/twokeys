@@ -5,9 +5,9 @@ import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Kapora Protocol: trustless deposits", template: "%s · Kapora" },
+  title: { default: "TwoKeys: trustless deposits", template: "%s · TwoKeys" },
   description:
-    "You can disappear, but not with my money. Kapora enforces the legal deposit rule (zadatek) with a Solana smart contract. No intermediaries.",
+    "You can disappear, but not with my money. TwoKeys enforces the legal deposit rule (zadatek) with a Solana smart contract. No intermediaries.",
 };
 
 export const viewport: Viewport = { themeColor: "#07080d" };

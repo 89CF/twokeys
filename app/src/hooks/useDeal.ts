@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { PublicKey } from "@solana/web3.js";
-import { useKapora } from "./useKapora";
+import { useTwoKeys } from "./useTwoKeys";
 import { isDecodeError, toUiDeal, type UiDeal } from "@/lib/model";
 import { usePolling } from "./usePolling";
 import { bytesToHex, isZeroBytes } from "@/lib/format";
@@ -12,7 +12,7 @@ import { bytesToHex, isZeroBytes } from "@/lib/format";
  * "incompatible" = an account exists but can't be decoded (e.g. created by an older program version).
  */
 export function useDeal(address: PublicKey | null) {
-  const { readClient } = useKapora();
+  const { readClient } = useTwoKeys();
   const fn =
     address && readClient
       ? async (): Promise<UiDeal | null | "incompatible"> => {

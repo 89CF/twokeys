@@ -25,8 +25,8 @@ export function WalletSwitcher() {
   useEffect(() => setMounted(true), []);
   useEffect(() => {
     const onOpen = () => setOpen(true);
-    window.addEventListener("kapora:open-account-menu", onOpen);
-    return () => window.removeEventListener("kapora:open-account-menu", onOpen);
+    window.addEventListener("twokeys:open-account-menu", onOpen);
+    return () => window.removeEventListener("twokeys:open-account-menu", onOpen);
   }, []);
   useEffect(() => {
     if (!open || !DEMO_WALLETS_ENABLED || demoAddrs) return;

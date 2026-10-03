@@ -6,10 +6,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-kapora = "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"
+twokeys = "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"
 
 [programs.devnet]
-kapora = "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"
+twokeys = "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"
 
 [provider]
 cluster = "devnet"

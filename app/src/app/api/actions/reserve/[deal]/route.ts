@@ -1,6 +1,6 @@
 import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, createAssociatedTokenAccountIdempotentInstruction, getAssociatedTokenAddressSync } from "@solana/spl-token";
-import { findProfilePda, findStatsPda, findVaultPda } from "@kapora/sdk";
+import { findProfilePda, findStatsPda, findVaultPda } from "@twokeys/sdk";
 import { actionError, actionJson, actionOptions, publicOrigin } from "@/lib/server/actions";
 import { parseKey, serverClient } from "@/lib/server/chain";
 import { readDb } from "@/lib/server/db";
@@ -13,7 +13,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 /**
- * Solana Action (Blink) for reserving a Kapora deal: GET describes it, POST returns an unsigned `reserve` transaction
+ * Solana Action (Blink) for reserving a TwoKeys deal: GET describes it, POST returns an unsigned `reserve` transaction
  * for the payer's account to sign. Uses the deal's own mint and platform for the accounts.
  */
 async function loadDeal(param: string): Promise<{ deal: UiDeal } | { error: string; status: number }> {

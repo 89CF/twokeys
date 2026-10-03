@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BorshInstructionCoder } from "@coral-xyz/anchor";
 import type { PartiallyDecodedInstruction, ParsedInstruction, PublicKey } from "@solana/web3.js";
-import { IDL } from "@kapora/sdk";
-import { useKapora } from "./useKapora";
+import { IDL } from "@twokeys/sdk";
+import { useTwoKeys } from "./useTwoKeys";
 
 /** Every transaction touching a deal, read from the chain, plus the user's own just-sent transactions. */
 export interface ActivityItem {
@@ -32,7 +32,7 @@ const LABELS: Record<string, string> = {
 const snake = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
 
 const cache = new Map<string, ActivityItem>();
-const localKey = (deal: string) => `kapora:tx:${deal}`;
+const localKey = (deal: string) => `twokeys:tx:${deal}`;
 
 /** Remember a transaction sent from this browser so it is listed immediately (and survives reloads). */
 export function recordTx(deal: string, label: string, signature: string, by: string | null) {
@@ -40,7 +40,7 @@ export function recordTx(deal: string, label: string, signature: string, by: str
     const list = JSON.parse(window.localStorage.getItem(localKey(deal)) ?? "[]") as { label: string; signature: string; by: string | null; at: number }[];
     if (!list.some((x) => x.signature === signature)) list.unshift({ label, signature, by, at: Math.floor(Date.now() / 1000) });
     window.localStorage.setItem(localKey(deal), JSON.stringify(list.slice(0, 30)));
-    window.dispatchEvent(new CustomEvent("kapora:tx", { detail: { deal } }));
+    window.dispatchEvent(new CustomEvent("twokeys:tx", { detail: { deal } }));
   } catch {
     /* storage unavailable */
   }
@@ -56,7 +56,7 @@ function readLocal(deal: string): ActivityItem[] {
 }
 
 export function useDealActivity(deal: PublicKey | null) {
-  const { connection, readClient } = useKapora();
+  const { connection, readClient } = useTwoKeys();
   const [items, setItems] = useState<ActivityItem[]>([]);
   const busy = useRef(false);
   const key = deal?.toBase58() ?? null;
@@ -112,10 +112,10 @@ export function useDealActivity(deal: PublicKey | null) {
         setTimeout(() => void refresh(), 2500);
       }
     };
-    window.addEventListener("kapora:tx", onTx);
+    window.addEventListener("twokeys:tx", onTx);
     return () => {
       clearInterval(id);
-      window.removeEventListener("kapora:tx", onTx);
+      window.removeEventListener("twokeys:tx", onTx);
     };
   }, [key, refresh]);
 

@@ -15,7 +15,7 @@ export default function DemoRentHome() {
           Cameras, laptops, drones and more. Your security deposit is locked in a smart contract, not sent to a stranger.
           Return the item, confirm, and it comes back automatically.
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#111] px-3 py-1.5 text-xs font-semibold text-white">
-            <ShieldCheck className="h-4 w-4 text-[#ffd23f]" /> Deposits secured by Kapora Protocol
+            <ShieldCheck className="h-4 w-4 text-[#ffd23f]" /> Deposits secured by TwoKeys
           </div>
         </div>
       </section>

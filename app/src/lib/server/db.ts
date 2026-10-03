@@ -8,7 +8,7 @@ import path from "node:path";
  */
 export function createJsonStore<T extends object>(fileName: string, empty: () => T) {
   const primary = path.join(process.cwd(), ".data", fileName);
-  const fallback = path.join(os.tmpdir(), `kapora-${fileName}`);
+  const fallback = path.join(os.tmpdir(), `twokeys-${fileName}`);
   let queue: Promise<unknown> = Promise.resolve();
 
   async function readFrom(file: string): Promise<T | null> {

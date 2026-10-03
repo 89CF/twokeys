@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-import { KaporaClient } from "../sdk/src";
+import { TwoKeysClient } from "../sdk/src";
 
 export const ROOT = path.join(__dirname, "..");
 export const KEYS_DIR = path.join(ROOT, "keys");
@@ -48,9 +48,9 @@ export function cliWalletKeypair(): Keypair {
   return loadKeypair(file);
 }
 
-export function clientFor(kp: Keypair, conn = connection()): KaporaClient {
+export function clientFor(kp: Keypair, conn = connection()): TwoKeysClient {
   const provider = new AnchorProvider(conn, new Wallet(kp), { commitment: "confirmed" });
-  return new KaporaClient(provider);
+  return new TwoKeysClient(provider);
 }
 
 export function readDeployment(): Deployment {

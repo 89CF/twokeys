@@ -14,7 +14,7 @@ export type Penalty = "forfeit" | "refund";
 export type OnComplete = "toPayee" | "toPayer";
 
 /** Legal label; constrains the parameters (zadatek: forfeit + S == D + toPayee; zaliczka: refund). */
-export type LegalLabel = "none" | "zadatek" | "zaliczka" | "trBaglanma";
+export type LegalLabel = "none" | "zadatek" | "zaliczka" | "trBinding";
 
 export type DealKind = "standard";
 

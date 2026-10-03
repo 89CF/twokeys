@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CircleCheck, MapPin, Phone, ShieldCheck, TriangleAlert, User } from "lucide-react";
 import { ListingArt } from "@/components/ListingArt";
-import { KaporaWidget } from "@/components/KaporaWidget";
+import { TwoKeysWidget } from "@/components/TwoKeysWidget";
 import { fmtPrice, getListing, listingsFor } from "@/data/listings";
 import { PLATFORM_AUTO } from "@/lib/config";
 
@@ -72,7 +72,7 @@ export default async function DemoAutoListing({ params }: { params: Promise<{ id
                 Reservation deposit: <b>{fmtPrice(car.deposit)}</b>. The deposit is locked in a smart contract, not sent to
                 the seller. The seller locks the same amount, so backing out costs them double.
               </p>
-              <KaporaWidget platform={PLATFORM_AUTO.toBase58()} listingId={car.id} amount={car.deposit} template="deposit" />
+              <TwoKeysWidget platform={PLATFORM_AUTO.toBase58()} listingId={car.id} amount={car.deposit} template="deposit" />
             </div>
           </div>
 
@@ -96,7 +96,7 @@ export default async function DemoAutoListing({ params }: { params: Promise<{ id
             <p>
               <b>Safety tip:</b> never send a deposit by bank transfer to someone you haven&apos;t met. Use the{" "}
               <span className="inline-flex items-center gap-0.5 font-bold">
-                <ShieldCheck className="h-3 w-3" /> Kapora
+                <ShieldCheck className="h-3 w-3" /> TwoKeys
               </span>{" "}
               button: the rules execute themselves.
             </p>

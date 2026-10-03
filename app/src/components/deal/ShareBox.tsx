@@ -14,7 +14,7 @@ export function ShareBox({ deal, highlight, amountLabel, payerName = "buyer" }: 
   const actionUrl = `${origin}/api/actions/reserve/${deal}`;
   const blinkUrl = `https://dial.to/?action=solana-action:${encodeURIComponent(actionUrl)}&cluster=devnet`;
   const isLocal = /localhost|127\.0\.0\.1/.test(origin);
-  const text = `Hi! Here is our deal on Kapora. You lock ${amountLabel} in a Solana program, not with me, and the agreed rules pay out automatically, even if one of us disappears: ${url}`;
+  const text = `Hi! Here is our deal on TwoKeys. You lock ${amountLabel} in a Solana program, not with me, and the agreed rules pay out automatically, even if one of us disappears: ${url}`;
 
   return (
     <div

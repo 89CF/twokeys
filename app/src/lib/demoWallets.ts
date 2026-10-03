@@ -29,7 +29,7 @@ export const DEMO_WALLET_IDS: DemoWalletId[] = ["seller", "buyer", "visitor"];
 
 export const DEMO_WALLETS_ENABLED = /devnet|localhost|127\.0\.0\.1/.test(RPC_URL);
 
-const storageKey = (id: DemoWalletId) => `kapora:demo-wallet:${id}`;
+const storageKey = (id: DemoWalletId) => `twokeys:demo-wallet:${id}`;
 
 /** Loads the persistent demo keypair for `id`, creating (and storing) it on first use. Browser only. */
 export function loadDemoKeypair(id: DemoWalletId): Keypair {

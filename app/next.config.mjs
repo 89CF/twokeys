@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   devIndicators: false,
-  transpilePackages: ["@kapora/sdk"],
+  transpilePackages: ["@twokeys/sdk"],
   eslint: { ignoreDuringBuilds: true },
   webpack: (config, { isServer }) => {
     if (!isServer) {

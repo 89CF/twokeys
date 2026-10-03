@@ -1,5 +1,5 @@
 {
-  "name": "@kapora/app",
+  "name": "@twokeys/app",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.32.1",
-    "@kapora/sdk": "workspace:*",
+    "@twokeys/sdk": "workspace:*",
     "@noble/curves": "1.9.7",
     "@solana/spl-token": "0.4.15",
     "@solana/wallet-adapter-base": "0.9.28",

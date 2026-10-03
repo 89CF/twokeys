@@ -1,6 +1,6 @@
-// Records the captioned Kapora demo video (≤ 2:55) with Playwright, driven through the real UI on Solana devnet.
+// Records the captioned TwoKeys demo video (≤ 2:55) with Playwright, driven through the real UI on Solana devnet.
 //
-//   pnpm --filter @kapora/app start            (terminal 1, app on :3000)
+//   pnpm --filter @twokeys/app start            (terminal 1, app on :3000)
 //   node e2e/record-video.mjs                  (terminal 2)  ->  ../pitch/demo-video.webm
 //
 // Env: BASE_URL (default http://localhost:3000), BROWSER_CHANNEL (msedge|chrome), HD=1 (1920x1080 instead of 1280x720),
@@ -48,10 +48,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // ---------------------------------------------------------------------------
 function loadDemoKeys() {
   const file = path.join(HERE, ".state.json");
-  if (!existsSync(file)) throw new Error("e2e/.state.json not found: run `pnpm --filter @kapora/app e2e` once to create demo accounts.");
+  if (!existsSync(file)) throw new Error("e2e/.state.json not found: run `pnpm --filter @twokeys/app e2e` once to create demo accounts.");
   const st = JSON.parse(readFileSync(file, "utf8"));
   const items = new Map();
-  for (const o of st.origins ?? []) for (const it of o.localStorage ?? []) if (it.name.startsWith("kapora:demo-wallet:")) items.set(it.name, it.value);
+  for (const o of st.origins ?? []) for (const it of o.localStorage ?? []) if (it.name.startsWith("twokeys:demo-wallet:")) items.set(it.name, it.value);
   return items;
 }
 
@@ -66,7 +66,7 @@ async function ensureFunds(keys) {
   const mint = new PublicKey(env.NEXT_PUBLIC_USDC_MINT);
   const need = { seller: 2000, buyer: 2800, visitor: 0 };
   for (const who of ["seller", "buyer", "visitor"]) {
-    const raw = keys.get(`kapora:demo-wallet:${who}`);
+    const raw = keys.get(`twokeys:demo-wallet:${who}`);
     if (!raw) throw new Error(`demo account ${who} missing in e2e/.state.json`);
     const pk = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(raw))).publicKey;
     const sol = (await conn.getBalance(pk)) / 1e9;
@@ -294,7 +294,7 @@ const CARD_CSS = `
 const MARK = `<span class="mark"><svg viewBox="0 0 32 32" width="38" height="38" fill="none"><path d="M16 3.5c3.2 2.2 6.6 3.3 10 3.4v8.3c0 6.6-4.2 11.1-10 13.3C10.2 26.3 6 21.8 6 15.2V6.9c3.4-.1 6.8-1.2 10-3.4Z" stroke="white" stroke-width="2.4" stroke-linejoin="round"/><circle cx="13" cy="15.5" r="3.6" stroke="white" stroke-width="2.2"/><circle cx="19" cy="15.5" r="3.6" stroke="white" stroke-width="2.2"/></svg></span>`;
 
 const TITLE_HTML = `<html><head><style>${CARD_CSS}</style></head><body><div class="grid"></div><div class="wrap">
-  <div class="logo">${MARK} Kapora Protocol</div>
+  <div class="logo">${MARK} TwoKeys</div>
   <h1>You can disappear,<br><span class="grad">but not with my money.</span></h1>
   <p class="fade d1">You find a car online. The seller asks for a deposit by bank transfer, then disappears.</p>
   <p class="fade d2">Polish law already has the rule (zadatek, Civil Code art. 394): if the seller backs out, they pay back double. But nobody goes to court over a deposit.</p>
@@ -302,7 +302,7 @@ const TITLE_HTML = `<html><head><style>${CARD_CSS}</style></head><body><div clas
 </div></body></html>`;
 
 const CLOSING_HTML = `<html><head><style>${CARD_CSS}</style></head><body><div class="grid"></div><div class="wrap">
-  <div class="logo">${MARK} Kapora Protocol</div>
+  <div class="logo">${MARK} TwoKeys</div>
   <h1>One component.<br><span class="grad">Every marketplace, every sector, every country.</span></h1>
   <p class="fade d1">Every rule that moves money lives in the on-chain program. No admin instruction, no custody, no fees.</p>
   <div class="pills fade d1"><span class="pill mint">Solana devnet · Anchor · open source</span><span class="pill"><code>${PROGRAM_ID}</code></span></div>
@@ -376,10 +376,10 @@ async function main() {
 
     // 2 · DemoAuto listing → widget → seller creates the offer
     await page.goto(`${BASE}/demo/auto/da-2210`);
-    await d.caption("1 · Seller", "DemoAuto is a fictional car marketplace. It adds Kapora with one script tag.", 2500);
-    const widgetBtn = page.locator("[data-kapora-widget] button");
+    await d.caption("1 · Seller", "DemoAuto is a fictional car marketplace. It adds TwoKeys with one script tag.", 2500);
+    const widgetBtn = page.locator("[data-twokeys-widget] button");
     await d.moveTo(widgetBtn);
-    await d.caption("1 · Seller", "The seller opens the Kapora widget on the listing…", 900);
+    await d.caption("1 · Seller", "The seller opens the TwoKeys widget on the listing…", 900);
     await d.click(widgetBtn);
     const frame = page.frameLocator("iframe.kp-frame");
     await frame.locator("text=Create an offer").first().waitFor({ timeout: 60_000 });
@@ -425,7 +425,7 @@ async function main() {
     await actAs(page, "seller", d);
     await role(page, "payee");
     await d.scrollTop();
-    await d.caption("2 · Seller", "The seller sees “Payment secured”. Nobody, not even Kapora, can move that money.", 3600);
+    await d.caption("2 · Seller", "The seller sees “Payment secured”. Nobody, not even TwoKeys, can move that money.", 3600);
     await d.snap("05-payment-secured");
     await d.caption("3 · Handover", "At the handover both confirm “Deal completed”: two signatures release the money.", 500);
     const confirmBtn = page.getByTestId("confirm-btn");
@@ -473,7 +473,7 @@ async function main() {
 
     // 5 · DemoRent: same component, another sector
     await page.goto(`${BASE}/demo/rent/dr-201`);
-    await page.locator("[data-kapora-widget] button").waitFor({ timeout: 30_000 });
+    await page.locator("[data-twokeys-widget] button").waitFor({ timeout: 30_000 });
     await d.caption("5 · DemoRent", "Same widget, same program, another sector: renting a camera from a stranger.", 3200);
     await d.snap("11-demorent");
     await page.goto(rentalUrl);

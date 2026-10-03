@@ -1,15 +1,15 @@
 "use client";
 
 import BN from "bn.js";
-import type { PlatformStats } from "@kapora/sdk";
-import { useKapora } from "@/hooks/useKapora";
+import type { PlatformStats } from "@twokeys/sdk";
+import { useTwoKeys } from "@/hooks/useTwoKeys";
 import { usePolling } from "@/hooks/usePolling";
 import { PLATFORMS } from "@/lib/config";
 import { fmtNumber, toUi } from "@/lib/format";
 
 /** Live totals across the demo platforms, read straight from on-chain PlatformStats accounts. */
 export function LiveStats() {
-  const { readClient } = useKapora();
+  const { readClient } = useTwoKeys();
   const q = usePolling<(PlatformStats | null)[]>(
     readClient ? () => Promise.all(PLATFORMS.map((p) => readClient.getPlatformStats(p.pubkey).catch(() => null))) : null,
     15000,

@@ -43,7 +43,7 @@ export default function DemoAutoLayout({ children }: { children: React.ReactNode
       <main>{children}</main>
       <footer className="mt-16 border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-slate-500 sm:px-6">
-          © 2026 DemoAuto (fictional). Deposits on this site are protected by the Kapora Protocol widget.
+          © 2026 DemoAuto (fictional). Deposits on this site are protected by the TwoKeys widget.
         </div>
       </footer>
     </div>

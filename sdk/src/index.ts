@@ -1,9 +1,9 @@
 /**
- * @kapora/sdk — thin TypeScript layer over the Anchor client of the `kapora` program.
+ * @twokeys/sdk — thin TypeScript layer over the Anchor client of the `twokeys` program.
  *
  * - PDA helpers (`findDealPda`, `findVaultPda`, `findProfilePda`, `findStatsPda`)
- * - `previewPayout` mirrors the on-chain payout table (programs/kapora/src/settle.rs)
- * - `KaporaClient` wraps every instruction and decodes accounts into plain objects
+ * - `previewPayout` mirrors the on-chain payout table (programs/twokeys/src/settle.rs)
+ * - `TwoKeysClient` wraps every instruction and decodes accounts into plain objects
  */
 import { AnchorProvider, Program, type Provider, utils } from "@coral-xyz/anchor";
 import type { Connection, GetProgramAccountsFilter } from "@solana/web3.js";
@@ -15,8 +15,8 @@ import {
 } from "@solana/spl-token";
 import BN from "bn.js";
 
-import idlJson from "./idl/kapora.json";
-import type { Kapora } from "./idl/kapora";
+import idlJson from "./idl/twokeys.json";
+import type { Twokeys as TwoKeys } from "./idl/twokeys";
 import type {
   CreateOfferParams,
   Deal,
@@ -34,10 +34,10 @@ import type {
 
 export * from "./types";
 export * from "./templates";
-export type { Kapora } from "./idl/kapora";
-export const IDL = idlJson as Kapora;
+export type { Twokeys as TwoKeys } from "./idl/twokeys";
+export const IDL = idlJson as TwoKeys;
 
-export const KAPORA_PROGRAM_ID = new PublicKey(idlJson.address);
+export const TWOKEYS_PROGRAM_ID = new PublicKey(idlJson.address);
 export const USDC_DECIMALS = 6;
 export const BPS_DENOMINATOR = 10_000;
 
@@ -48,7 +48,7 @@ export const BPS_DENOMINATOR = 10_000;
 export function findDealPda(
   payee: PublicKey,
   offerId: BN,
-  programId: PublicKey = KAPORA_PROGRAM_ID,
+  programId: PublicKey = TWOKEYS_PROGRAM_ID,
 ): PublicKey {
   return PublicKey.findProgramAddressSync(
     [Buffer.from("deal"), payee.toBuffer(), offerId.toArrayLike(Buffer, "le", 8)],
@@ -56,20 +56,20 @@ export function findDealPda(
   )[0];
 }
 
-export function findVaultPda(deal: PublicKey, programId: PublicKey = KAPORA_PROGRAM_ID): PublicKey {
+export function findVaultPda(deal: PublicKey, programId: PublicKey = TWOKEYS_PROGRAM_ID): PublicKey {
   return PublicKey.findProgramAddressSync([Buffer.from("vault"), deal.toBuffer()], programId)[0];
 }
 
 export function findProfilePda(
   wallet: PublicKey,
-  programId: PublicKey = KAPORA_PROGRAM_ID,
+  programId: PublicKey = TWOKEYS_PROGRAM_ID,
 ): PublicKey {
   return PublicKey.findProgramAddressSync([Buffer.from("profile"), wallet.toBuffer()], programId)[0];
 }
 
 export function findStatsPda(
   platform: PublicKey,
-  programId: PublicKey = KAPORA_PROGRAM_ID,
+  programId: PublicKey = TWOKEYS_PROGRAM_ID,
 ): PublicKey {
   return PublicKey.findProgramAddressSync([Buffer.from("stats"), platform.toBuffer()], programId)[0];
 }
@@ -222,16 +222,16 @@ export interface FullDealAccounts {
   systemProgram: PublicKey;
 }
 
-export class KaporaClient {
-  readonly program: Program<Kapora>;
+export class TwoKeysClient {
+  readonly program: Program<TwoKeys>;
 
-  constructor(provider: Provider, programId: PublicKey = KAPORA_PROGRAM_ID) {
-    const idl = { ...IDL, address: programId.toBase58() } as Kapora;
-    this.program = new Program<Kapora>(idl, provider);
+  constructor(provider: Provider, programId: PublicKey = TWOKEYS_PROGRAM_ID) {
+    const idl = { ...IDL, address: programId.toBase58() } as TwoKeys;
+    this.program = new Program<TwoKeys>(idl, provider);
   }
 
   /** Client without a wallet — for reading accounts only. */
-  static readOnly(connection: Connection, programId: PublicKey = KAPORA_PROGRAM_ID): KaporaClient {
+  static readOnly(connection: Connection, programId: PublicKey = TWOKEYS_PROGRAM_ID): TwoKeysClient {
     const wallet = {
       publicKey: PublicKey.default,
       signTransaction: async () => {
@@ -243,7 +243,7 @@ export class KaporaClient {
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const provider = new AnchorProvider(connection, wallet as any, { commitment: "confirmed" });
-    return new KaporaClient(provider, programId);
+    return new TwoKeysClient(provider, programId);
   }
 
   get programId(): PublicKey {
