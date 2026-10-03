@@ -1,0 +1,2755 @@
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/kapora.json`.
+ */
+export type Kapora = {
+  "address": "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F",
+  "metadata": {
+    "name": "kapora",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Kapora Protocol: trustless deposits (zadatek / zaliczka) for marketplaces"
+  },
+  "instructions": [
+    {
+      "name": "cancelOffer",
+      "docs": [
+        "Payee cancels anytime while `Offered`; anyone may after the reserve deadline."
+      ],
+      "discriminator": [
+        92,
+        203,
+        223,
+        40,
+        92,
+        89,
+        53,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "payee (anytime) or anyone after the reserve deadline"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claimAfterDeadline",
+      "docs": [
+        "Anyone may settle after `complete_deadline + grace_secs`."
+      ],
+      "discriminator": [
+        55,
+        47,
+        158,
+        12,
+        61,
+        132,
+        211,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "anyone (pays for missing token accounts)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payer",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "confirmComplete",
+      "docs": [
+        "Payer or payee confirms the deal happened. Second confirmation settles."
+      ],
+      "discriminator": [
+        47,
+        56,
+        204,
+        21,
+        194,
+        12,
+        137,
+        142
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "payer or payee"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payer",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createOffer",
+      "docs": [
+        "Payee opens an offer and locks their stake `S` in the vault."
+      ],
+      "discriminator": [
+        237,
+        233,
+        192,
+        168,
+        248,
+        7,
+        249,
+        241
+      ],
+      "accounts": [
+        {
+          "name": "payee",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  97,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "arg",
+                "path": "args.offer_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payeeToken",
+          "writable": true
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "args.platform"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "createOfferArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "expireDispute",
+      "docs": [
+        "Anyone may refund both sides if the arbiter stays silent."
+      ],
+      "discriminator": [
+        241,
+        116,
+        178,
+        182,
+        234,
+        173,
+        61,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "anyone (pays for missing token accounts)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payer",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "openDispute",
+      "docs": [
+        "Payer or payee escalates to the arbiter with a salted evidence hash."
+      ],
+      "discriminator": [
+        137,
+        25,
+        99,
+        119,
+        23,
+        223,
+        161,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "evidenceHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "reserve",
+      "docs": [
+        "Payer locks deposit `D` and reserves the offer."
+      ],
+      "discriminator": [
+        92,
+        99,
+        244,
+        209,
+        28,
+        65,
+        213,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resolve",
+      "docs": [
+        "Arbiter splits the vault (`payer_bps` / 10000 to the payer) and assigns fault."
+      ],
+      "discriminator": [
+        246,
+        150,
+        236,
+        206,
+        108,
+        63,
+        58,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "the deal's arbiter"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payer",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "payerBps",
+          "type": "u16"
+        },
+        {
+          "name": "fault",
+          "type": {
+            "defined": {
+              "name": "fault"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "docs": [
+        "Payer or payee backs out; the legal rule decides who gets what."
+      ],
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "actor",
+          "docs": [
+            "the party backing out (payer or payee)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "deal",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payee",
+          "writable": true,
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payer",
+          "relations": [
+            "deal"
+          ]
+        },
+        {
+          "name": "payeeToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payee"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payerToken",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "payeeProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payee"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerProfile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stats",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "deal.platform",
+                "account": "deal"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associatedTokenProgram",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "deal",
+      "discriminator": [
+        125,
+        223,
+        160,
+        234,
+        71,
+        162,
+        182,
+        219
+      ]
+    },
+    {
+      "name": "platformStats",
+      "discriminator": [
+        230,
+        145,
+        51,
+        113,
+        44,
+        85,
+        153,
+        126
+      ]
+    },
+    {
+      "name": "profile",
+      "discriminator": [
+        184,
+        101,
+        165,
+        188,
+        95,
+        63,
+        127,
+        188
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "confirmed",
+      "discriminator": [
+        241,
+        59,
+        234,
+        249,
+        244,
+        34,
+        38,
+        147
+      ]
+    },
+    {
+      "name": "disputeOpened",
+      "discriminator": [
+        239,
+        222,
+        102,
+        235,
+        193,
+        85,
+        1,
+        214
+      ]
+    },
+    {
+      "name": "offerCancelled",
+      "discriminator": [
+        45,
+        42,
+        175,
+        214,
+        51,
+        192,
+        154,
+        9
+      ]
+    },
+    {
+      "name": "offerCreated",
+      "discriminator": [
+        31,
+        236,
+        215,
+        144,
+        75,
+        45,
+        157,
+        87
+      ]
+    },
+    {
+      "name": "reserved",
+      "discriminator": [
+        113,
+        14,
+        94,
+        126,
+        13,
+        203,
+        14,
+        65
+      ]
+    },
+    {
+      "name": "settled",
+      "discriminator": [
+        232,
+        210,
+        40,
+        17,
+        142,
+        124,
+        145,
+        238
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "invalidAmount",
+      "msg": "Amount must be greater than zero"
+    },
+    {
+      "code": 6001,
+      "name": "stakeMustEqualDeposit",
+      "msg": "Zadatek requires payee stake == payer amount"
+    },
+    {
+      "code": 6002,
+      "name": "invalidLegalParams",
+      "msg": "Parameters violate the legal label (zadatek: Forfeit + S == D + ToPayee; zaliczka: Refund)"
+    },
+    {
+      "code": 6003,
+      "name": "invalidWindow",
+      "msg": "All time windows must be > 0"
+    },
+    {
+      "code": 6004,
+      "name": "invalidStatus",
+      "msg": "Instruction not allowed in the current deal status"
+    },
+    {
+      "code": 6005,
+      "name": "notParty",
+      "msg": "Signer is not a party of this deal"
+    },
+    {
+      "code": 6006,
+      "name": "notArbiter",
+      "msg": "Signer is not the arbiter of this deal"
+    },
+    {
+      "code": 6007,
+      "name": "noArbiter",
+      "msg": "This deal has no arbiter; disputes are disabled"
+    },
+    {
+      "code": 6008,
+      "name": "deadlinePassed",
+      "msg": "Deadline has passed"
+    },
+    {
+      "code": 6009,
+      "name": "deadlineNotReached",
+      "msg": "Deadline has not been reached yet"
+    },
+    {
+      "code": 6010,
+      "name": "selfDeal",
+      "msg": "Buyer and seller must be different wallets"
+    },
+    {
+      "code": 6011,
+      "name": "unsupportedKind",
+      "msg": "Unsupported deal kind"
+    },
+    {
+      "code": 6012,
+      "name": "alreadyConfirmed",
+      "msg": "Already confirmed"
+    },
+    {
+      "code": 6013,
+      "name": "invalidBps",
+      "msg": "buyer_bps must be <= 10000"
+    },
+    {
+      "code": 6014,
+      "name": "mathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 6015,
+      "name": "mintMismatch",
+      "msg": "Token mint does not match the deal mint"
+    },
+    {
+      "code": 6016,
+      "name": "payoutMismatch",
+      "msg": "Payout does not add up to the vault total"
+    },
+    {
+      "code": 6017,
+      "name": "invalidOutcome",
+      "msg": "Invalid outcome for payout"
+    }
+  ],
+  "types": [
+    {
+      "name": "confirmed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          },
+          {
+            "name": "by",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "createOfferArgs",
+      "docs": [
+        "Arguments of `create_offer`, bundled in a struct to keep the instruction readable."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "kind",
+            "docs": [
+              "0 = Standard. Anything else -> UnsupportedKind."
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "offerId",
+            "type": "u64"
+          },
+          {
+            "name": "payerAmount",
+            "type": "u64"
+          },
+          {
+            "name": "payeeStake",
+            "type": "u64"
+          },
+          {
+            "name": "penalty",
+            "type": {
+              "defined": {
+                "name": "penalty"
+              }
+            }
+          },
+          {
+            "name": "onComplete",
+            "type": {
+              "defined": {
+                "name": "onComplete"
+              }
+            }
+          },
+          {
+            "name": "legalLabel",
+            "type": {
+              "defined": {
+                "name": "legalLabel"
+              }
+            }
+          },
+          {
+            "name": "template",
+            "type": "u8"
+          },
+          {
+            "name": "listingHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "reserveWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "completeWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "graceSecs",
+            "type": "i64"
+          },
+          {
+            "name": "arbiterWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "deal",
+      "docs": [
+        "One deal between a payee (creates the offer: seller / owner / freelancer) and a",
+        "(future) payer (locks the main amount: buyer / renter / client).",
+        "seeds: [\"deal\", payee, offer_id.to_le_bytes()]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "kind",
+            "type": {
+              "defined": {
+                "name": "dealKind"
+              }
+            }
+          },
+          {
+            "name": "payee",
+            "type": "pubkey"
+          },
+          {
+            "name": "payer",
+            "docs": [
+              "Pubkey::default() until `reserve`"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "arbiter",
+            "docs": [
+              "Pubkey::default() = no arbiter, disputes disabled"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "platform",
+            "docs": [
+              "integrating platform (anonymous stats only)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "offerId",
+            "type": "u64"
+          },
+          {
+            "name": "payerAmount",
+            "docs": [
+              "D"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "payeeStake",
+            "docs": [
+              "S (may be 0)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "penalty",
+            "type": {
+              "defined": {
+                "name": "penalty"
+              }
+            }
+          },
+          {
+            "name": "onComplete",
+            "type": {
+              "defined": {
+                "name": "onComplete"
+              }
+            }
+          },
+          {
+            "name": "legalLabel",
+            "type": {
+              "defined": {
+                "name": "legalLabel"
+              }
+            }
+          },
+          {
+            "name": "template",
+            "docs": [
+              "0=Deposit, 1=Rental, 2=Freelance, 3=Purchase (label only)"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "listingHash",
+            "docs": [
+              "salted SHA-256 of the listing; the salt lives off-chain"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "evidenceHash",
+            "docs": [
+              "salted hash of dispute evidence (zero if none)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "reserveWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "completeWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "graceSecs",
+            "type": "i64"
+          },
+          {
+            "name": "arbiterWindowSecs",
+            "type": "i64"
+          },
+          {
+            "name": "createdAt",
+            "type": "i64"
+          },
+          {
+            "name": "reservedAt",
+            "type": "i64"
+          },
+          {
+            "name": "completeDeadline",
+            "type": "i64"
+          },
+          {
+            "name": "disputeDeadline",
+            "type": "i64"
+          },
+          {
+            "name": "payerConfirmed",
+            "type": "bool"
+          },
+          {
+            "name": "payeeConfirmed",
+            "type": "bool"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "status"
+              }
+            }
+          },
+          {
+            "name": "outcome",
+            "type": {
+              "defined": {
+                "name": "outcome"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vaultBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "dealKind",
+      "docs": [
+        "What kind of deal this is. The MVP only implements `Standard` (one-shot deal,",
+        "used by all four templates); future mechanics (milestones, attesters) get a",
+        "new variant + payout fn."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "standard"
+          }
+        ]
+      }
+    },
+    {
+      "name": "disputeOpened",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          },
+          {
+            "name": "by",
+            "type": "pubkey"
+          },
+          {
+            "name": "evidenceHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "fault",
+      "docs": [
+        "Which party the arbiter found at fault (updates `disputes_lost`)."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "none"
+          },
+          {
+            "name": "payer"
+          },
+          {
+            "name": "payee"
+          }
+        ]
+      }
+    },
+    {
+      "name": "legalLabel",
+      "docs": [
+        "Legal label. Does not change the payout by itself but constrains the parameters:",
+        "Zadatek (PL Civil Code art. 394) => Forfeit + S == D + ToPayee; Zaliczka => Refund."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "none"
+          },
+          {
+            "name": "zadatek"
+          },
+          {
+            "name": "zaliczka"
+          },
+          {
+            "name": "trBaglanma"
+          }
+        ]
+      }
+    },
+    {
+      "name": "offerCancelled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "offerCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          },
+          {
+            "name": "payee",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform",
+            "type": "pubkey"
+          },
+          {
+            "name": "payerAmount",
+            "type": "u64"
+          },
+          {
+            "name": "payeeStake",
+            "type": "u64"
+          },
+          {
+            "name": "penalty",
+            "type": {
+              "defined": {
+                "name": "penalty"
+              }
+            }
+          },
+          {
+            "name": "onComplete",
+            "type": {
+              "defined": {
+                "name": "onComplete"
+              }
+            }
+          },
+          {
+            "name": "legalLabel",
+            "type": {
+              "defined": {
+                "name": "legalLabel"
+              }
+            }
+          },
+          {
+            "name": "template",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "onComplete",
+      "docs": [
+        "Where `D` goes when both parties confirm. `S` always returns to the payee."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "toPayee"
+          },
+          {
+            "name": "toPayer"
+          }
+        ]
+      }
+    },
+    {
+      "name": "outcome",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "none"
+          },
+          {
+            "name": "completed"
+          },
+          {
+            "name": "payerWithdrew"
+          },
+          {
+            "name": "payeeWithdrew"
+          },
+          {
+            "name": "payerNoShow"
+          },
+          {
+            "name": "payeeNoShow"
+          },
+          {
+            "name": "expired"
+          },
+          {
+            "name": "cancelled"
+          },
+          {
+            "name": "resolved"
+          },
+          {
+            "name": "disputeTimeout"
+          }
+        ]
+      }
+    },
+    {
+      "name": "penalty",
+      "docs": [
+        "What happens to the party that backs out or stays silent past the deadline."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "forfeit"
+          },
+          {
+            "name": "refund"
+          }
+        ]
+      }
+    },
+    {
+      "name": "platformStats",
+      "docs": [
+        "Anonymous aggregate counters per integrating platform.",
+        "seeds: [\"stats\", platform]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "platform",
+            "type": "pubkey"
+          },
+          {
+            "name": "offers",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "type": "u64"
+          },
+          {
+            "name": "completed",
+            "type": "u64"
+          },
+          {
+            "name": "payerWithdrew",
+            "type": "u64"
+          },
+          {
+            "name": "payeeWithdrew",
+            "type": "u64"
+          },
+          {
+            "name": "noShow",
+            "type": "u64"
+          },
+          {
+            "name": "expired",
+            "type": "u64"
+          },
+          {
+            "name": "cancelled",
+            "type": "u64"
+          },
+          {
+            "name": "disputed",
+            "type": "u64"
+          },
+          {
+            "name": "resolved",
+            "type": "u64"
+          },
+          {
+            "name": "volumeCompleted",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "profile",
+      "docs": [
+        "Behaviour trail of a wallet. No identity — only counters.",
+        "seeds: [\"profile\", wallet]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "completed",
+            "type": "u32"
+          },
+          {
+            "name": "withdrew",
+            "type": "u32"
+          },
+          {
+            "name": "noShow",
+            "type": "u32"
+          },
+          {
+            "name": "disputesLost",
+            "type": "u32"
+          },
+          {
+            "name": "volumeCompleted",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "reserved",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          },
+          {
+            "name": "payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "completeDeadline",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "settled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deal",
+            "type": "pubkey"
+          },
+          {
+            "name": "outcome",
+            "type": {
+              "defined": {
+                "name": "outcome"
+              }
+            }
+          },
+          {
+            "name": "toPayer",
+            "type": "u64"
+          },
+          {
+            "name": "toPayee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "status",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "offered"
+          },
+          {
+            "name": "reserved"
+          },
+          {
+            "name": "disputed"
+          },
+          {
+            "name": "settled"
+          }
+        ]
+      }
+    }
+  ]
+};

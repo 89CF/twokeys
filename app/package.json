@@ -1,0 +1,47 @@
+{
+  "name": "@kapora/app",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "copy-widget": "node ../widget/build.mjs",
+    "dev": "node ../widget/build.mjs && next dev",
+    "build": "node ../widget/build.mjs && next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "e2e": "node e2e/flow.mjs"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "0.32.1",
+    "@kapora/sdk": "workspace:*",
+    "@noble/curves": "1.9.7",
+    "@solana/spl-token": "0.4.15",
+    "@solana/wallet-adapter-base": "0.9.28",
+    "@solana/wallet-adapter-phantom": "0.9.30",
+    "@solana/wallet-adapter-react": "0.15.40",
+    "@solana/wallet-adapter-react-ui": "0.9.40",
+    "@solana/wallet-adapter-solflare": "0.6.34",
+    "@solana/web3.js": "1.99.0",
+    "bn.js": "5.2.5",
+    "bs58": "6.0.0",
+    "buffer": "6.0.3",
+    "clsx": "2.1.1",
+    "geist": "1.7.2",
+    "lucide-react": "1.50.0",
+    "next": "15.5.27",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sonner": "2.0.8"
+  },
+  "devDependencies": {
+    "@types/bn.js": "5.2.0",
+    "@types/node": "22.20.5",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "autoprefixer": "10.4.27",
+    "playwright": "1.63.0",
+    "postcss": "8.5.6",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3"
+  }
+}

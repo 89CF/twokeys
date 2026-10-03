@@ -1,0 +1,13 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+.next
+dist
+*.tsbuildinfo
+.env*.local
+keys/*.json
+!keys/README.md
