@@ -564,8 +564,8 @@ def build_slides():
         w = 0.42 + 0.098 * len(st)
         pill(s, x, 4.35, w, 0.4, st, fill=CARD2, line_=BORDER, color=TEXT, size=12, bold=False, spacing=0)
         x += w + 0.16
-    info = [("Repo", "[ github.com/<user>/kapora ]"), ("Video", "[ public video link, ≤ 3 min ]"),
-            ("Live demo", "[ https://<demo-url> ]  ·  devnet, Phantom"),
+    info = [("Repo", "github.com/89CF/kapora"), ("Video", "[ public video link, ≤ 3 min ]"),
+            ("Live demo", "run locally on devnet, see README  ·  demo accounts built in"),
             ("Program", "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"),
             ("Team", "[Team name]  ·  [Name Surname]  ·  ahmetenes2004@hotmail.com")]
     card(s, 0.85, 4.98, 7.45, 1.8, fill="0D1330")
