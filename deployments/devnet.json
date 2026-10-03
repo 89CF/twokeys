@@ -1,0 +1,15 @@
+{
+  "cluster": "devnet",
+  "programId": "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F",
+  "usdcMint": "7ajPpuq9PN9kcbNgLDkSDW2RCBhuXkeyKc758bbAZfb",
+  "mintAuthority": "EoZhtJqhcGBhqf6vcfwa4GYWfKna5aY3trNCSHKqCPwB",
+  "arbiter": "6su62ss4dnQFif8jUyWFJndFAuzNwc22cJB29suJcgMH",
+  "platforms": {
+    "demoAuto": "2CxboToKDAxRAcdN1t1WoPkBTBt7zSRd5q6BLT8PQfLQ",
+    "demoRent": "GTkDotc51vYisK1VwovWWtMaw4htRQ4Xjq3auT44AyAV"
+  },
+  "demoWallets": {
+    "payee": "7Yo3GMaYQePwfAprR5xrrRTTXubtbbK9YLy1xzherPcU",
+    "payer": "8eU3fnjDehqNux4buaHPESEWmVsTBLCizNHpcARg9eDh"
+  }
+}

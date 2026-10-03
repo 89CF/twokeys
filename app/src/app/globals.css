@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #07080d;
+  color: #e2e8f0;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-brand-text bg-clip-text text-transparent;
+  }
+  .panel {
+    @apply rounded-2xl border border-white/[0.07] bg-ink-800/80 shadow-card backdrop-blur;
+  }
+  .panel-hover {
+    @apply transition hover:border-white/[0.14] hover:bg-ink-700/80;
+  }
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500;
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900 px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600
+      outline-none transition focus:border-brand-violet/60 focus:ring-4 focus:ring-brand-violet/15;
+  }
+  .grid-bg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+  }
+  .skeleton {
+    @apply rounded-lg bg-white/[0.04];
+    background-image: linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+    background-size: 400px 100%;
+    background-repeat: no-repeat;
+    @apply animate-shimmer;
+  }
+}
+
+/* Wallet adapter button, themed to match the app */
+.wallet-adapter-button {
+  font-family: inherit !important;
+  height: 40px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+.wallet-adapter-button-trigger {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 60%, #4f46e5 100%) !important;
+  box-shadow: 0 8px 24px -10px rgba(99, 102, 241, 0.8);
+}
+.wallet-adapter-button:not([disabled]):hover {
+  filter: brightness(1.08);
+}
+.wallet-adapter-modal-wrapper {
+  background: #0d0f17 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px !important;
+  font-family: inherit !important;
+}
+.wallet-adapter-dropdown-list {
+  background: #0d0f17 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: inherit !important;
+}
+
+/* range input */
+input[type="range"].range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+input[type="range"].range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #fff;
+  border: 4px solid #8b5cf6;
+  cursor: pointer;
+}
+input[type="range"].range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 4px solid #8b5cf6;
+  cursor: pointer;
+}
