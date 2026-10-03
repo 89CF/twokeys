@@ -1,6 +1,6 @@
 import type BN from "bn.js";
 import type { PublicKey } from "@solana/web3.js";
-import { previewPayout, templateFromId, type Deal, type DealStatus, type KaporaClient, type OnComplete, type Outcome, type Payout, type Penalty, type TemplatePreset } from "@kapora/sdk";
+import { previewPayout, templateFromId, type Deal, type DealStatus, type TwoKeysClient, type OnComplete, type Outcome, type Payout, type Penalty, type TemplatePreset } from "@twokeys/sdk";
 
 /** A deal plus its resolved template preset (role names, confirm labels, …). */
 export type UiDeal = Deal & { tpl: TemplatePreset };
@@ -11,7 +11,7 @@ export function toUiDeal(d: Deal): UiDeal {
   return { ...d, tpl: templateFromId(d.template) };
 }
 
-export async function listUiDeals(client: KaporaClient, filter: { payee?: PublicKey; payer?: PublicKey; status?: DealStatus; platform?: PublicKey }) {
+export async function listUiDeals(client: TwoKeysClient, filter: { payee?: PublicKey; payer?: PublicKey; status?: DealStatus; platform?: PublicKey }) {
   return (await client.listDeals(filter)).map(toUiDeal);
 }
 

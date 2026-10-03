@@ -15,7 +15,7 @@ export default function DemoAutoHome() {
             seller backs out, you get double back, automatically.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold">
-            <ShieldCheck className="h-4 w-4 text-[#14f195]" /> Deposits secured by Kapora Protocol
+            <ShieldCheck className="h-4 w-4 text-[#14f195]" /> Deposits secured by TwoKeys
           </div>
         </div>
       </section>
@@ -41,7 +41,7 @@ export default function DemoAutoHome() {
               <div className="mt-3 flex items-end justify-between">
                 <div className="text-xl font-black text-[#0f1b2d]">{fmtPrice(c.price)}</div>
                 <span className="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
-                  <ShieldCheck className="h-3 w-3" /> Kapora
+                  <ShieldCheck className="h-3 w-3" /> TwoKeys
                 </span>
               </div>
               <div className="mt-3 flex items-center gap-1 border-t border-slate-100 pt-3 text-xs text-slate-500">

@@ -34,7 +34,7 @@ export function useTx() {
         });
         return result;
       } catch (e) {
-        console.error(`[kapora] ${label} failed`, e);
+        console.error(`[twokeys] ${label} failed`, e);
         toast.error(`${label} failed`, { id, description: friendlyError(e), duration: 9000 });
         return undefined;
       } finally {

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-/** Kapora mark: two interlocking locks (mutual collateral) inside a gradient tile. */
+/** TwoKeys mark: two interlocking locks (mutual collateral) inside a gradient tile. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <span
@@ -28,7 +28,7 @@ export function Logo({ className }: { className?: string }) {
     <span className={clsx("inline-flex items-center gap-2.5", className)}>
       <LogoMark />
       <span className="text-[17px] font-semibold tracking-tight text-white">
-        Kapora<span className="ml-1 font-normal text-slate-500">Protocol</span>
+        TwoKeys<span className="ml-1 font-normal text-slate-500">Protocol</span>
       </span>
     </span>
   );

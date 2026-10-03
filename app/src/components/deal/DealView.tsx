@@ -20,8 +20,8 @@ import {
   Zap,
 } from "lucide-react";
 import { PublicKey } from "@solana/web3.js";
-import type { KaporaClient } from "@kapora/sdk";
-import { useKapora } from "@/hooks/useKapora";
+import type { TwoKeysClient } from "@twokeys/sdk";
+import { useTwoKeys } from "@/hooks/useTwoKeys";
 import { useDeal, useListingInfo } from "@/hooks/useDeal";
 import { useChainNow } from "@/hooks/useChainNow";
 import { useTx } from "@/hooks/useTx";
@@ -87,7 +87,7 @@ export function DealView({ address, created }: { address: string; created: boole
     return (
       <Shell>
         <EmptyState icon={<SearchX className="h-6 w-6" />} title="Deal not found (incompatible version)">
-          This address holds a deal created by an older version of the Kapora program, which this app can no longer read.
+          This address holds a deal created by an older version of the TwoKeys program, which this app can no longer read.
           Create a new offer to try the current version.
         </EmptyState>
       </Shell>
@@ -128,7 +128,7 @@ function DealSkeleton() {
 }
 
 export function DealLoaded({ deal, refresh, created, embedded, stale }: { deal: UiDeal; refresh: () => Promise<void>; created: boolean; embedded: boolean; stale: boolean }) {
-  const { client, walletStr, wallet, connected } = useKapora();
+  const { client, walletStr, wallet, connected } = useTwoKeys();
   const now = useChainNow();
   const { run, pending } = useTx();
   const balances = useBalances(wallet);
@@ -151,7 +151,7 @@ export function DealLoaded({ deal, refresh, created, embedded, stale }: { deal: 
   const payeeName = tpl.roles.payee;
   const dealStr = deal.address.toBase58();
 
-  const tx = (label: string, fn: (c: KaporaClient) => Promise<string>, success?: string) => async () => {
+  const tx = (label: string, fn: (c: TwoKeysClient) => Promise<string>, success?: string) => async () => {
     if (!client) return;
     const sig = await run(label, () => fn(client), { success });
     if (sig) {
@@ -251,7 +251,7 @@ export function DealLoaded({ deal, refresh, created, embedded, stale }: { deal: 
         {deal.status === "offered" && role === "payee" && created && <ShareBox deal={dealStr} highlight amountLabel={fmtUsdc(D)} payerName={payerName.toLowerCase()} />}
         {deal.status === "reserved" && role === "payee" && (
           <Banner tone="good" icon={<ShieldCheck className="h-6 w-6" />} title={tpl.key === "rental" ? "Deposit secured" : "Payment secured"}>
-            The {payerName.toLowerCase()} locked <b>{fmtUsdc(D)}</b> in the program. Nobody, not even Kapora, can move it except by the rules below.
+            The {payerName.toLowerCase()} locked <b>{fmtUsdc(D)}</b> in the program. Nobody, not even TwoKeys, can move it except by the rules below.
             When you&apos;re done, press &ldquo;{tpl.confirmLabels.payee}&rdquo;.
           </Banner>
         )}

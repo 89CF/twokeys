@@ -1,6 +1,6 @@
-// End-to-end demo flow for Kapora, driven purely through the UI with the devnet demo accounts.
+// End-to-end demo flow for TwoKeys, driven purely through the UI with the devnet demo accounts.
 //
-//   pnpm --filter @kapora/app e2e                       (app must already be running at BASE_URL)
+//   pnpm --filter @twokeys/app e2e                       (app must already be running at BASE_URL)
 //
 // Env:
 //   BASE_URL        default http://localhost:3000
@@ -124,7 +124,7 @@ async function fundDemoAccounts(page) {
 /** Opens the widget on a listing page, screenshots the modal and returns the /d/new URL it points to. */
 async function openWidget(page, listingPath, prefix) {
   await page.goto(`${BASE}${listingPath}`);
-  const widgetBtn = page.locator("[data-kapora-widget] button");
+  const widgetBtn = page.locator("[data-twokeys-widget] button");
   await widgetBtn.waitFor({ timeout: 30_000 });
   await shot(page, `${prefix}-listing-widget`);
   await widgetBtn.click();
@@ -218,7 +218,7 @@ async function runPayeeDisappears(page) {
   const q = new URLSearchParams({ listing: "da-1042", amount: String(DEPOSIT), template: "deposit" });
   const platform = await (async () => {
     await page.goto(`${BASE}/demo/auto/da-1042`);
-    await page.locator("[data-kapora-widget] button").waitFor({ timeout: 30_000 });
+    await page.locator("[data-twokeys-widget] button").waitFor({ timeout: 30_000 });
     return page.locator('script[src^="/widget.js"]').first().getAttribute("data-platform");
   })();
   if (platform) q.set("platform", platform);

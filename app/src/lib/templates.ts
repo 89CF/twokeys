@@ -2,10 +2,10 @@
  * Deal templates come from the SDK (same program, different parameters; brief §4.1).
  * This module re-exports them and adds a few UI-only helpers.
  */
-import { TEMPLATES, templateFromKey, type LegalLabel, type Penalty, type TemplateKey } from "@kapora/sdk";
+import { TEMPLATES, templateFromKey, type LegalLabel, type Penalty, type TemplateKey } from "@twokeys/sdk";
 
-export { TEMPLATES, TEMPLATE_KEYS, templateFromId, templateFromKey } from "@kapora/sdk";
-export type { LegalLabel, OnComplete, Penalty, TemplateKey, TemplatePreset } from "@kapora/sdk";
+export { TEMPLATES, TEMPLATE_KEYS, templateFromId, templateFromKey } from "@twokeys/sdk";
+export type { LegalLabel, OnComplete, Penalty, TemplateKey, TemplatePreset } from "@twokeys/sdk";
 
 /** Accepts current keys plus legacy widget values (car/property/item → deposit). */
 export function parseTemplate(s: string | null | undefined): TemplateKey {
@@ -16,7 +16,7 @@ export const LEGAL_LABEL_INFO: Record<LegalLabel, { name: string; law: string } 
   none: null,
   zadatek: { name: "Zadatek", law: "Polish Civil Code, art. 394" },
   zaliczka: { name: "Zaliczka", law: "Refundable advance payment (PL)" },
-  trBaglanma: { name: "Bağlanma parası", law: "Turkish Code of Obligations (design assumption)" },
+  trBinding: { name: "Binding deposit (TR)", law: "Turkish Code of Obligations (design assumption)" },
 };
 
 export const PENALTY_INFO: Record<Penalty, { name: string; short: string }> = {

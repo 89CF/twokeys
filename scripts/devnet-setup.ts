@@ -22,7 +22,7 @@ import {
 import fs from "node:fs";
 import path from "node:path";
 
-import { KAPORA_PROGRAM_ID } from "../sdk/src";
+import { TWOKEYS_PROGRAM_ID } from "../sdk/src";
 import {
   ROOT,
   connection,
@@ -92,7 +92,7 @@ async function main() {
   writeDeployment({
 
     cluster: "devnet",
-    programId: KAPORA_PROGRAM_ID.toBase58(),
+    programId: TWOKEYS_PROGRAM_ID.toBase58(),
     usdcMint: mint.toBase58(),
     mintAuthority: mintAuthority.publicKey.toBase58(),
     arbiter: arbiter.publicKey.toBase58(),
@@ -102,7 +102,7 @@ async function main() {
 
   const env = [
     `NEXT_PUBLIC_RPC_URL=https://api.devnet.solana.com`,
-    `NEXT_PUBLIC_PROGRAM_ID=${KAPORA_PROGRAM_ID.toBase58()}`,
+    `NEXT_PUBLIC_PROGRAM_ID=${TWOKEYS_PROGRAM_ID.toBase58()}`,
     `NEXT_PUBLIC_USDC_MINT=${mint.toBase58()}`,
     `NEXT_PUBLIC_ARBITER=${arbiter.publicKey.toBase58()}`,
     `NEXT_PUBLIC_PLATFORM_AUTO=${demoAuto.toBase58()}`,

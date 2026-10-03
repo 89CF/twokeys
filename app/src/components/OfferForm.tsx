@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Gavel, Info, Lock, Scale, ShieldCheck, Timer, Wallet } from "lucide-react";
-import { toBaseUnits, type LegalLabel, type Penalty } from "@kapora/sdk";
+import { toBaseUnits, type LegalLabel, type Penalty } from "@twokeys/sdk";
 import type { PublicKey } from "@solana/web3.js";
-import { useKapora } from "@/hooks/useKapora";
+import { useTwoKeys } from "@/hooks/useTwoKeys";
 import { useTx } from "@/hooks/useTx";
 import { useBalances } from "@/hooks/useTokenBalance";
 import { useEmbedded } from "@/hooks/useEmbedded";
@@ -33,7 +33,7 @@ type WindowKey = "reserve" | "complete" | "grace" | "arbiter";
 export function OfferForm({ platform, listingId, listing, amount, template }: OfferFormProps) {
   const router = useRouter();
   const embedded = useEmbedded();
-  const { client, wallet, walletStr, connected } = useKapora();
+  const { client, wallet, walletStr, connected } = useTwoKeys();
   const { run, pending } = useTx();
   const balances = useBalances(wallet);
   const tpl = TEMPLATES[template];
@@ -126,7 +126,7 @@ export function OfferForm({ platform, listingId, listing, amount, template }: Of
     if (result) {
       const deal = result.deal.toBase58();
       recordTx(deal, "Offer created", result.signature, walletStr);
-      if (embedded) window.parent?.postMessage({ type: "kapora:deal-created", deal }, "*");
+      if (embedded) window.parent?.postMessage({ type: "twokeys:deal-created", deal }, "*");
       router.push(`/d/${deal}?created=1`);
     }
   }
@@ -323,7 +323,7 @@ export function OfferForm({ platform, listingId, listing, amount, template }: Of
           {useArbiter && (
             <div className="mt-4">
               <input className="input font-mono text-[13px]" placeholder="Arbiter account address" value={arbiterInput} onChange={(e) => setArbiterInput(e.target.value)} />
-              {DEFAULT_ARBITER && arbiterInput === DEFAULT_ARBITER.toBase58() && <p className="mt-2 text-xs text-slate-500">Using the Kapora demo arbiter.</p>}
+              {DEFAULT_ARBITER && arbiterInput === DEFAULT_ARBITER.toBase58() && <p className="mt-2 text-xs text-slate-500">Using the TwoKeys demo arbiter.</p>}
             </div>
           )}
         </Card>

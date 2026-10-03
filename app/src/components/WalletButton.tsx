@@ -6,7 +6,7 @@ import { UserRound } from "lucide-react";
 /** Opens the header account menu (demo accounts + wallet apps). Used wherever an action needs a connected account. */
 export function openAccountMenu() {
   window.scrollTo({ top: 0, behavior: "smooth" });
-  window.dispatchEvent(new Event("kapora:open-account-menu"));
+  window.dispatchEvent(new Event("twokeys:open-account-menu"));
 }
 
 export function WalletButton({ label = "Connect account", className }: { label?: string; className?: string }) {

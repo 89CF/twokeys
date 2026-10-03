@@ -163,7 +163,7 @@ export const LISTINGS: Listing[] = [
       { label: "Min. rental", value: "1 day" },
     ],
     highlights: ["Cleaned sensor", "64 GB card included", "Padded bag"],
-    description: "Great for weddings and travel. Pick up and return in person; the security deposit is held by Kapora, not by me.",
+    description: "Great for weddings and travel. Pick up and return in person; the security deposit is held by TwoKeys, not by me.",
     art: { from: "#111827", to: "#374151", body: "#e5e7eb", accent: "#facc15", variant: "camera" },
   },
   {

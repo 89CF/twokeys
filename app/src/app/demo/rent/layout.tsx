@@ -42,7 +42,7 @@ export default function DemoRentLayout({ children }: { children: React.ReactNode
       <main>{children}</main>
       <footer className="mt-16 border-t border-black/10">
         <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-black/50 sm:px-6">
-          DemoRent (fictional). Security deposits are held by the Kapora Protocol smart contract, not by DemoRent or the owner.
+          DemoRent (fictional). Security deposits are held by the TwoKeys smart contract, not by DemoRent or the owner.
         </div>
       </footer>
     </div>

@@ -1,14 +1,14 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { KaporaClient } from "@kapora/sdk";
+import { TwoKeysClient } from "@twokeys/sdk";
 import { PROGRAM_ID, RPC_URL } from "@/lib/config";
 
-let cached: { connection: Connection; client: KaporaClient } | null = null;
+let cached: { connection: Connection; client: TwoKeysClient } | null = null;
 
-/** Server-side read-only Kapora client (no wallet). */
+/** Server-side read-only TwoKeys client (no wallet). */
 export function serverClient() {
   if (!cached) {
     const connection = new Connection(RPC_URL, "confirmed");
-    cached = { connection, client: KaporaClient.readOnly(connection, PROGRAM_ID) };
+    cached = { connection, client: TwoKeysClient.readOnly(connection, PROGRAM_ID) };
   }
   return cached;
 }

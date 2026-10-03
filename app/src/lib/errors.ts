@@ -29,7 +29,7 @@ export function friendlyError(err: unknown): string {
   if (/no record of a prior credit|AccountNotFound|Attempt to debit an account/i.test(msg))
     return "Your wallet has no devnet SOL for fees. Use the faucet to get some.";
   if (/blockhash not found|block height exceeded/i.test(msg)) return "The transaction expired. Please try again.";
-  if (/not implemented \(stub\)/.test(msg)) return "The Kapora SDK is not wired up yet (stub build).";
+  if (/not implemented \(stub\)/.test(msg)) return "The TwoKeys SDK is not wired up yet (stub build).";
   if (/WalletNotConnected|wallet not connected/i.test(msg)) return "Connect your wallet first.";
   return msg.length > 180 ? msg.slice(0, 180) + "…" : msg;
 }

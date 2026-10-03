@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Gavel } from "lucide-react";
-import type { Fault } from "@kapora/sdk";
-import { useKapora } from "@/hooks/useKapora";
+import type { Fault } from "@twokeys/sdk";
+import { useTwoKeys } from "@/hooks/useTwoKeys";
 import { useTx } from "@/hooks/useTx";
 import { recordTx } from "@/hooks/useDealActivity";
 import { Button } from "@/components/ui";
@@ -12,7 +12,7 @@ import { fmtUsdc } from "@/lib/format";
 
 /** Arbiter decision: payer share (bps) + who was at fault. Enabled only for the deal's arbiter. */
 export function ResolveForm({ deal, onDone }: { deal: UiDeal; onDone?: () => void }) {
-  const { client, walletStr } = useKapora();
+  const { client, walletStr } = useTwoKeys();
   const { run, pending } = useTx();
   const [pct, setPct] = useState(50);
   const [fault, setFault] = useState<Fault>("none");

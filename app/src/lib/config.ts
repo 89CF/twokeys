@@ -15,7 +15,7 @@ function pk(value: string | undefined, fallback: string | null): PublicKey | nul
     try {
       return new PublicKey(v);
     } catch {
-      console.warn(`[kapora] invalid public key in env: ${v}`);
+      console.warn(`[twokeys] invalid public key in env: ${v}`);
     }
   }
   return fallback ? new PublicKey(fallback) : null;
@@ -23,7 +23,7 @@ function pk(value: string | undefined, fallback: string | null): PublicKey | nul
 
 export const RPC_URL = (process.env.NEXT_PUBLIC_RPC_URL || "").trim() || "https://api.devnet.solana.com";
 
-/** undefined = let the SDK use its built-in KAPORA_PROGRAM_ID */
+/** undefined = let the SDK use its built-in TWOKEYS_PROGRAM_ID */
 export const PROGRAM_ID: PublicKey | undefined = pk(process.env.NEXT_PUBLIC_PROGRAM_ID, null) ?? undefined;
 
 export const USDC_MINT: PublicKey = pk(process.env.NEXT_PUBLIC_USDC_MINT, PLACEHOLDER.usdcMint)!;
