@@ -1,0 +1,7 @@
+target
+pitch
+docs
+vendor
+app/e2e
+.anchor
+**/node_modules
