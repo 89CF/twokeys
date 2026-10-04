@@ -11,8 +11,8 @@
 ## Team
 
 - **Repository:** https://github.com/89CF/twokeys
-- **Team name:** [Team name]
-- **Members (1):** [Name Surname] — ahmetenes2004@hotmail.com
+- **Team name:** Farazi
+- **Members (1):** ahmetenes2004@hotmail.com
 
 ---
 
@@ -28,7 +28,7 @@
 
 The same program serves four templates that differ only in their parameters (penalty Forfeit or Refund, who receives the amount on completion, legal label): Deposit (zadatek, our main story), P2P Rental, Freelance and P2P Purchase. An optional arbiter, agreed when the offer is created, can only split the funds between the two parties; if the arbiter stays silent, everyone is refunded. Each account builds an on-chain behaviour trail without identity. No personal data goes on-chain: listing details and evidence stay off-chain, and only salted SHA-256 hashes are stored. The demo uses two fictional sites, DemoAuto (cars) and DemoRent (camera rental), test USDC (1 USDC ≈ 1 PLN) and deadlines shortened to seconds; every step links to Solana Explorer.
 
-Team: [Team name] — [Name Surname] — ahmetenes2004@hotmail.com
+Team: Farazi — ahmetenes2004@hotmail.com
 
 ---
 
@@ -152,7 +152,7 @@ Deadline: **Sunday 4 October 2026, 23:00**. Upload an early draft to HackTribe; 
 - [ ] **HackTribe account linked to Discord** (the FAQ requires a Discord ID to upload).
 - [ ] Category: **Finance Without Intermediaries**.
 - [ ] **Project title**, at most 5 words: "TwoKeys: Trustless Deposits for Marketplaces".
-- [ ] **Team name** filled in (replace "[Team name]") and the **member list** (1 member) with name, surname and email in the description.
+- [ ] **Team name** filled in (replace "Farazi") and the **member list** (1 member) with name, surname and email in the description.
 - [ ] **Description** in English, at most 500 words, containing the **design rationale** and the **target user** (paste the section above, with placeholders replaced).
 - [ ] **PDF presentation**, at most 10 slides (`pitch/deck.pdf`; also attach `deck.pptx` if allowed). Fill in the repo, video and demo links on slide 10 and re-run `python build_deck.py`.
 - [ ] **Video**: at most 3:00, English, at a **public link** (mandatory for Superteam). Use `pitch/demo-video.webm` (recorded backup) or a narrated recording, then upload and paste the link.
