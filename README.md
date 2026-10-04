@@ -4,6 +4,8 @@
 
 HackYeah 2026 · Superteam PL challenge **Finance Without Intermediaries** · Solana **devnet**
 
+**Live demo:** https://twokeys-psi.vercel.app (no login: use the "Acting as" demo accounts in the header, then Faucet → "Fund demo accounts")
+
 TwoKeys is a small Solana program plus an embeddable widget. When two strangers do a deal, the money goes
 into a program-owned vault instead of to the other person, and the rules for who gets it back are fixed in
 the program when the offer is created. Each sector is a **template**: the same program with different

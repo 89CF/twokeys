@@ -11,3 +11,6 @@ dist
 .env*.local
 keys/*.json
 !keys/README.md
+
+.vercel
+.env*

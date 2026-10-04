@@ -565,7 +565,7 @@ def build_slides():
         pill(s, x, 4.35, w, 0.4, st, fill=CARD2, line_=BORDER, color=TEXT, size=12, bold=False, spacing=0)
         x += w + 0.16
     info = [("Repo", "github.com/89CF/twokeys"), ("Video", "linked in the HackTribe submission (2:32)"),
-            ("Live demo", "run locally on devnet, see README  ·  demo accounts built in"),
+            ("Live demo", "twokeys-psi.vercel.app  ·  devnet, demo accounts built in"),
             ("Program", "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"),
             ("Team", "Farazi")]
     card(s, 0.85, 4.98, 7.45, 1.8, fill="0D1330")
