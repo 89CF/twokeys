@@ -564,10 +564,10 @@ def build_slides():
         w = 0.42 + 0.098 * len(st)
         pill(s, x, 4.35, w, 0.4, st, fill=CARD2, line_=BORDER, color=TEXT, size=12, bold=False, spacing=0)
         x += w + 0.16
-    info = [("Repo", "github.com/89CF/twokeys"), ("Video", "[ public video link, ≤ 3 min ]"),
+    info = [("Repo", "github.com/89CF/twokeys"), ("Video", "linked in the HackTribe submission (2:32)"),
             ("Live demo", "run locally on devnet, see README  ·  demo accounts built in"),
             ("Program", "AkQXPVXUYDqyNUVNAsYGYXy9sHQR636xcuJbAJkiJe5F"),
-            ("Team", "[Team name]  ·  [Name Surname]  ·  ahmetenes2004@hotmail.com")]
+            ("Team", "Farazi")]
     card(s, 0.85, 4.98, 7.45, 1.8, fill="0D1330")
     for i, (k, v) in enumerate(info):
         y = 5.08 + i * 0.32
